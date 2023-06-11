@@ -1,5 +1,9 @@
-import { useState, createContext, useEffect } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { Button, Card, Container, Row, Col } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
+import ExpenseForm from './components/ExpenseForm';
+import ExpenseList from './components/ExpenseList';
 import "bootstrap/dist/css/bootstrap.min.css";
 import ExpensesPage from './pages/ExpensesPage';
 import ExpensePage from './pages/ExpensePage';
@@ -17,24 +21,35 @@ function RedirectToExpenses() {
 }
 
 function App() {
-    const [expenses, setExpenses] = useState([]);
-    const [savedExpenses, setSavedExpenses] = useState([])
+  const [expenses, setExpenses] = useState([]);
+  const [savedExpenses, setSavedExpenses] = useState([]);
 
-    const deleteSavedExpense = (index) => {
-      setSavedExpenses(savedExpenses.filter((_, i) => i !== index));
-    };
+  useEffect(() => {
+    const savedExpenses = localStorage.getItem('expenses');
+    if (savedExpenses) {
+      setSavedExpenses(JSON.parse(savedExpenses));
+    }
+  }, []);
 
-    return (
-      <ExpenseContext.Provider value={{expenses, setExpenses, savedExpenses, setSavedExpenses, deleteSavedExpense}}>
-        <Router>
-          <Routes>
-            <Route path='/' element={<RedirectToExpenses />} />
-            <Route path='/expenses' element={<ExpensesPage />} />
-            <Route path='/expense/:id' element={<ExpensePage />} /> 
-          </Routes>
-        </Router>
-      </ExpenseContext.Provider>
-    );
+  useEffect(() => {
+    localStorage.setItem('expenses', JSON.stringify(savedExpenses));
+  }, [savedExpenses]);
+
+  const deleteSavedExpense = (index) => {
+    setSavedExpenses(savedExpenses.filter((_, i) => i !== index));
+  };
+
+  return (
+    <ExpenseContext.Provider value={{ expenses, setExpenses, savedExpenses, setSavedExpenses, deleteSavedExpense }}>
+      <Router>
+        <Routes>
+          <Route path='/' element={<RedirectToExpenses />} />
+          <Route path='/expenses' element={<ExpensesPage />} />
+          <Route path='/expense/:id' element={<ExpensePage />} />
+        </Routes>
+      </Router>
+    </ExpenseContext.Provider>
+  );
 }
 
 export default App;

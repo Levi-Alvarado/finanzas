@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { ExpenseContext } from "../App";
 
 export default function ExpensesPage() {
-    const { expenses, setExpenses, savedExpenses, setSavedExpenses } = useContext(ExpenseContext);
+    const { expenses, setExpenses, savedExpenses, setSavedExpenses, deleteSavedExpense } = useContext(ExpenseContext);
     const [expenseTitle, setExpenseTitle] = useState("")
     const addExpense = (expense) => {
         setExpenses([...expenses, expense]);
@@ -58,17 +58,19 @@ export default function ExpensesPage() {
             </Card.Body>
           </Card>
           <Card className="text-center">
-            <Card.Header>Gastos Guardados</Card.Header>
-            <Card.Body>
-                <ul>
-                    {savedExpenses.map((user, index) => (
-                    <li key={index}>
-                        <Link to={'/expense/'+index}>{user.title}</Link>
-                    </li>
-                    ))}
-                </ul>
-            </Card.Body>
-          </Card>
+          <Card.Header>Gastos Guardados</Card.Header>
+          <Card.Body>
+            <ul>
+              {savedExpenses.map((user, index) => (
+                <li key={index}>
+                  <Link to={'/expense/'+index}>{user.title}</Link>
+                  <Button variant="danger" onClick={() => deleteSavedExpense(index)}>Eliminar</Button>
+                </li>
+              ))}
+            </ul>
+          </Card.Body>
+        </Card>
+          
         </Col>
       </Row>   
     </Container>

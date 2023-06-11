@@ -29,7 +29,7 @@ function ExpenseForm({ addExpense }) {
         <Form.Label>Categoría</Form.Label>
         <Form.Control type="text" value={category} onChange={(e) => setCategory(e.target.value)} />
       </Form.Group>
-      <Button variant="primary" type="submit">Añadir gasto</Button>
+      <Button className="my-button" variant="primary" type="submit">Añadir gasto</Button>  
     </Form>
   );
 }

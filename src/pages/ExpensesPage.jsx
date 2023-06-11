@@ -54,7 +54,7 @@ export default function ExpensesPage() {
               <div className="form-group">
                 <input className="form-control" placeholder="Ingresa el titulo" type="text" value={expenseTitle} onChange={(e) => setExpenseTitle(e.target.value)} />
               </div>
-              <Button onClick={handleClick} variant="primary">Guardar gastos</Button>
+              <Button className="my-button" onClick={handleClick} variant="primary">Guardar gastos</Button>
             </Card.Body>
           </Card>
           <Card className="text-center">
@@ -64,7 +64,7 @@ export default function ExpensesPage() {
               {savedExpenses.map((user, index) => (
                 <li key={index}>
                   <Link to={'/expense/'+index}>{user.title}</Link>
-                  <Button variant="danger" onClick={() => deleteSavedExpense(index)}>Eliminar</Button>
+                  <Button className="my-button" variant="danger" onClick={() => deleteSavedExpense(index)}>Eliminar</Button>
                 </li>
               ))}
             </ul>

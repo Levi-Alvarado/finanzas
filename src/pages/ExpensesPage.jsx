@@ -4,6 +4,7 @@ import ExpenseForm from "../components/ExpenseForm";
 import ExpenseList from "../components/ExpenseList";
 import { Link } from "react-router-dom";
 import { ExpenseContext } from "../App";
+import { moneyFormat as xd } from "../utils"
 
 export default function ExpensesPage() {
     const { expenses, setExpenses, savedExpenses, setSavedExpenses, deleteSavedExpense } = useContext(ExpenseContext);
@@ -50,7 +51,7 @@ export default function ExpensesPage() {
           <Card className="text-center">
             <Card.Header>Total gastado</Card.Header>
             <Card.Body>
-              <Card.Text>{getTotalExpenses()}</Card.Text>
+              <Card.Text>{xd(getTotalExpenses())}</Card.Text>
               <div className="form-group">
                 <input className="form-control" placeholder="Ingresa el titulo" type="text" value={expenseTitle} onChange={(e) => setExpenseTitle(e.target.value)} />
               </div>

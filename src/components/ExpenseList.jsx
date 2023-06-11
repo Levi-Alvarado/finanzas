@@ -1,5 +1,5 @@
-import React from 'react';  
 import { Button, ListGroup } from 'react-bootstrap';  
+import { moneyFormat } from '../utils';
 
 function ExpenseList({ expenses, deleteExpense }) {  
   return (  
@@ -11,7 +11,7 @@ function ExpenseList({ expenses, deleteExpense }) {
             <br />  
             <span> {expense.category}</span>  
             <br />  
-            <span>Valor: {expense.amount}</span>  
+            <span>Valor: {moneyFormat(expense.amount)}</span>  
           </div>  
           <Button className="my-button2" variant="danger" size="sm" onClick={() => deleteExpense(index)}>Eliminar</Button>  
         </ListGroup.Item>  
@@ -20,4 +20,4 @@ function ExpenseList({ expenses, deleteExpense }) {
   );  
 }  
 
-export default ExpenseList;
+export default ExpenseList; 

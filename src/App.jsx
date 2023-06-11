@@ -1,9 +1,5 @@
-import React, { useState, createContext, useEffect } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
-import { Button, Card, Container, Row, Col } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
-import ExpenseForm from './components/ExpenseForm';
-import ExpenseList from './components/ExpenseList';
 import "bootstrap/dist/css/bootstrap.min.css";
 import ExpensesPage from './pages/ExpensesPage';
 import ExpensePage from './pages/ExpensePage';
@@ -39,16 +35,22 @@ function App() {
     setSavedExpenses(savedExpenses.filter((_, i) => i !== index));
   };
 
+
   return (
-    <ExpenseContext.Provider value={{ expenses, setExpenses, savedExpenses, setSavedExpenses, deleteSavedExpense }}>
-      <Router>
-        <Routes>
-          <Route path='/' element={<RedirectToExpenses />} />
-          <Route path='/expenses' element={<ExpensesPage />} />
-          <Route path='/expense/:id' element={<ExpensePage />} />
-        </Routes>
-      </Router>
-    </ExpenseContext.Provider>
+    <main className='d-flex flex-column w-100'>
+      <h1 className="text-center mb-5 pb-5 border-bottom">Maneja tus gastos</h1>
+      <section className='w-100'>
+        <ExpenseContext.Provider value={{ expenses, setExpenses, savedExpenses, setSavedExpenses, deleteSavedExpense }}>
+          <Router>
+            <Routes>
+              <Route path='/' element={<RedirectToExpenses />} />
+              <Route path='/expenses' element={<ExpensesPage />} />
+              <Route path='/expense/:id' element={<ExpensePage />} />
+            </Routes>
+          </Router>
+        </ExpenseContext.Provider>
+      </section>
+    </main>
   );
 }
 
